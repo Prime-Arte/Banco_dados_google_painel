@@ -2,7 +2,7 @@ name: google_GCP_painel
 
 on:
   push:
-    branches: [master]
+    branches: [main]
 
 jobs:
   deploy:
