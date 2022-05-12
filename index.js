@@ -400,6 +400,6 @@ app.patch('/UPDATE/',
 
 
 
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT_HTTP, () => {
   console.log("Servidor iniciado na porta")
 });
