@@ -239,7 +239,7 @@ app.get('/BUSCAR/ESPECF/', (req, res) => {
 //* resgatando dados todos dados da coluna
 app.get('/BUSCAR/', (req, res) => {
 
-  const table = req.body.table
+  const table = req.query['table']
   const sql = `SELECT * FROM ${table}`
 
   poll.getConnection((error, conn) => {
@@ -304,9 +304,10 @@ app.post('/INPUT/', (req, res, next) => {
 //*Voltar descrição da tabela
 app.get('/DESC/TABLE', function (req, res) {
 
-  const table = req.params.table
+  const table = req.query['table']
+  console.log(table)
 
-  const sql = `DESC '${table}'`
+  const sql = `DESC ${table}`
 
   poll.getConnection((error, conn) => {
     if (error) {
