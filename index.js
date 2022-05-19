@@ -107,7 +107,7 @@ app.post('/CREATE/TABLE', async (req, res, next) => {
 })
 
 //*Drop Tabela
-app.post('/DROP/TABLE', async (req, res, next) => {
+app.post('/DROP/TABLE', authorization, async (req, res, next) => {
 
   const database = req.body.database
   const table = req.body.table;
