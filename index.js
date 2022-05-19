@@ -26,32 +26,55 @@ app.get('/', (req, res) => { // para renderizar a home;
 //Todo - rotas============================
 
 // //*DROP Banco de dados
-// app.post('/DROP/DATABASE', authorization, async (req, res, next) => {
+app.post('/CRIAR/DATABASE', authorization, async (req, res, next) => {
 
-//   const drop_dataBase = req.body.drop_dataBase;
+  const criar_dataBase = req.body.criar_dataBase;
 
-//   const sql = `DROP DATABASE ${drop_dataBase}`
+  const sql = `CREATE DATABASE ${criar_dataBase}`
 
-//   poll.getConnection((error, conn) => {
-//     if (error) {
-//       return res.status(500).send({
-//         error: error
-//       })
-//     }
-//     conn.query(sql, (error, result, fields) => {
-//       if (error) {
-//         return res.status(500).send({
-//           error: error
-//         })
-//       }
-//       return res.status(200).send({
-//         response: result
-//       })
-//     })
-//   })
-//   res.redirect('/')
-//   next()
-// });
+  poll.getConnection((error, conn) => {
+    if (error) {
+      return res.status(500).send({
+        error: error
+      })
+    }
+    conn.query(sql, (error, result, fields) => {
+      if (error) {
+        return res.status(500).send({
+          error: error
+        })
+      }
+      return res.status(200).send({
+        response: result
+      })
+    })
+  })
+});
+
+app.post('/DROP/DATABASE', authorization, async (req, res, next) => {
+
+  const drop_dataBase = req.body.drop_dataBase;
+
+  const sql = `DROP DATABASE ${drop_dataBase}`
+
+  poll.getConnection((error, conn) => {
+    if (error) {
+      return res.status(500).send({
+        error: error
+      })
+    }
+    conn.query(sql, (error, result, fields) => {
+      if (error) {
+        return res.status(500).send({
+          error: error
+        })
+      }
+      return res.status(200).send({
+        response: result
+      })
+    })
+  })
+});
 
 
 app.post('/CREATE/TABLE', async (req, res, next) => {
@@ -400,10 +423,6 @@ app.patch('/UPDATE/',
       })
     })
   })
-
-
-
-
 
 
 app.listen(process.env.PORT_HTTP, () => {
