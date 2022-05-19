@@ -143,7 +143,7 @@ app.post('/ADD/COLUN', async (req, res, next) => {
   const colun = req.body.colun;
   const tipo_dado = req.body.tipo_dado;
 
-  const sql = `ALTER TABLE ${database}.${table} ADD ${colun} ${tipo_dado}`
+  const sql = `ALTER TABLE ${database}.${table} ADD (${colun} ${tipo_dado})`
 
   poll.getConnection((error, conn) => {
     if (error) {
@@ -282,7 +282,9 @@ app.get('/BUSCAR/', (req, res) => {
         })
       }
       return res.status(200).send({
-        response: result
+        response: result,
+        data: table,
+        database: database
       })
     })
   })
@@ -291,19 +293,12 @@ app.get('/BUSCAR/', (req, res) => {
 //*Input de dados
 app.post('/INPUT/', (req, res, next) => {
 
-  const database = req.body.database
+  const database = req.body.database;
   const table = req.body.table;
-  const {
-    colun1,
+  const colun = req.body.colun;
+  const data = req.body.data;
 
-  } = req.body;
-
-  const {
-    dado_input1,
-
-  } = req.body;
-
-  const sql = `INSERT INTO ${database}.${table} (${colun1}) VALUE ('${dado_input1}')`
+  const sql = `INSERT INTO ${database}.${table} (${colun}) VALUE ('${data}')`
 
   poll.getConnection((error, conn) => {
     if (error) {
@@ -349,7 +344,9 @@ app.get('/DESC/TABLE/', function (req, res) {
         })
       }
       return res.status(200).send({
-        response: result
+        response: result,
+        data: table,
+        database: database
       })
     })
   })
@@ -423,6 +420,59 @@ app.patch('/UPDATE/',
       })
     })
   })
+
+
+app.get('/TABELAS',
+  function (req, res) {
+
+    const database = req.query["database"]
+
+    let sql = `SHOW TABLES IN ${database};`
+
+    poll.getConnection((error, conn) => {
+      if (error) {
+        return res.status(500).send({
+          error: error
+        })
+      }
+      conn.query(sql, (error, result, fields) => {
+        if (error) {
+          return res.status(500).send({
+            error: error
+          })
+        }
+        return res.status(200).send({
+          response: result
+        })
+      })
+    })
+  })
+
+app.get('/BANCOS',
+  function (req, res) {
+
+    let sql = 'SHOW DATABASES;'
+
+    poll.getConnection((error, conn) => {
+      if (error) {
+        return res.status(500).send({
+          error: error
+        })
+      }
+      conn.query(sql, (error, result, fields) => {
+        if (error) {
+          return res.status(500).send({
+            error: error
+          })
+        }
+        return res.status(200).send({
+          response: result
+        })
+      })
+    })
+  })
+
+
 
 
 app.listen(process.env.PORT_HTTP, () => {
