@@ -296,9 +296,13 @@ app.post('/INPUT/', (req, res, next) => {
   const database = req.body.database;
   const table = req.body.table;
   const colun = req.body.colun;
+  // const b = colun.replace(/'/g, '');
   const data = req.body.data;
+  //const c = data.replace(/'/g, '');
+  console.log(c)
 
-  const sql = `INSERT INTO ${database}.${table} (${colun}) VALUE ('${data}')`
+  const sql = `INSERT INTO ${database}.${table} (${b}) VALUE (${c})`
+  console.log(sql)
 
   poll.getConnection((error, conn) => {
     if (error) {
@@ -426,8 +430,9 @@ app.get('/TABELAS',
   function (req, res) {
 
     const database = req.query["database"]
-
+    console.log(database)
     let sql = `SHOW TABLES IN ${database};`
+
 
     poll.getConnection((error, conn) => {
       if (error) {
@@ -441,9 +446,16 @@ app.get('/TABELAS',
             error: error
           })
         }
-        return res.status(200).send({
-          response: result
-        })
+        let dados_response = []
+        for (var i = 0; i < result.length; ++i) {
+
+          dados_response.push({
+            table: Object.values(result[i])[0]
+          })
+        }
+        return res.status(200).send(
+          dados_response
+        )
       })
     })
   })
@@ -451,7 +463,7 @@ app.get('/TABELAS',
 app.get('/BANCOS',
   function (req, res) {
 
-    let sql = 'SHOW DATABASES;'
+    let sql = 'SHOW schemas;'
 
     poll.getConnection((error, conn) => {
       if (error) {
@@ -472,9 +484,33 @@ app.get('/BANCOS',
     })
   })
 
+app.post('/RENAME/TABLE',
+  function (req, res) {
 
+    const database = req.body.database
+    const antiga_table = req.body.antiga_table
+    const nova_table = req.body.nova_table
 
+    let sql = `RENAME TABLE ${database}.${antiga_table} TO ${database}.${nova_table};`
 
+    poll.getConnection((error, conn) => {
+      if (error) {
+        return res.status(500).send({
+          error: error
+        })
+      }
+      conn.query(sql, (error, result, fields) => {
+        if (error) {
+          return res.status(500).send({
+            error: error
+          })
+        }
+        return res.status(200).send({
+          response: result
+        })
+      })
+    })
+  })
 app.listen(process.env.PORT_HTTP, () => {
   console.log("Servidor iniciado na porta")
 });
