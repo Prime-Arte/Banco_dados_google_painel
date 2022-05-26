@@ -300,8 +300,9 @@ app.post('/INPUT/', (req, res, next) => {
   //const c = data.replace(/'/g, '');
   console.log(colun, data)
 
-  const sql = `INSERT INTO ${database}.${table} (${colun}) VALUE (${data})`
+  const sql = `INSERT INTO ${database}.${table} (${colun}) VALUE ('${data}')`
   console.log(sql)
+
 
   poll.getConnection((error, conn) => {
     if (error) {
@@ -368,7 +369,7 @@ app.delete('/DELETE/',
     } = req.body;
 
 
-    const sql = `DELETE FROM ${database}.${table} WHERE ${colun}=${data} AND ID = ${id}`;
+    const sql = `DELETE FROM ${database}.${table} WHERE ${colun}='${data}' AND ID = ${id}`;
     console.log(sql)
     poll.getConnection((error, conn) => {
       if (error) {
@@ -401,7 +402,7 @@ app.patch('/UPDATE/',
       dado_ser_modification
     } = req.body;
 
-    const sql = `UPDATE ${database}.${table} SET  ${colun}=${dado_ser_modification} WHERE ${coluna_chave}=${dado_chave};`
+    const sql = `UPDATE ${database}.${table} SET  ${colun}='${dado_ser_modification}' WHERE ${coluna_chave}='${dado_chave}';`
     console.log(sql)
     poll.getConnection((error, conn) => {
       if (error) {
