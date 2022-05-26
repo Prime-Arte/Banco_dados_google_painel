@@ -235,7 +235,7 @@ app.get('/BUSCAR/ESPECF/', (req, res) => {
   const colun_especifico = req.query["colun_especifico"]
   const dado = req.query["dado"]
 
-  const sql = `SELECT ${database}.${colun} FROM ${table} WHERE ${colun_especifico} = '${dado}'`
+  const sql = `SELECT ${database}.${table} FROM ${colun} WHERE ${colun_especifico} = '${dado}'`
 
 
   poll.getConnection((error, conn) => {
@@ -284,6 +284,34 @@ app.get('/BUSCAR/', (req, res) => {
         response: result,
         data: table,
         database: database
+      })
+    })
+  })
+})
+app.get('/BUSCA/FILTRO', (req, res) => {
+
+  const database = req.query["database"]
+  const table = req.query["table"]
+  const data = req.query["data"]
+
+
+  const sql = `SELECT * FROM ${database}.${table} WHERE ID = ${data};`
+
+  poll.getConnection((error, conn) => {
+    if (error) {
+      return res.status(500).send({
+        error: error
+      })
+    }
+    conn.query(sql, (error, result, fields) => {
+      if (error) {
+        return res.status(500).send({
+          error: error
+        })
+      }
+      return res.status(200).send({
+        response: result,
+
       })
     })
   })
