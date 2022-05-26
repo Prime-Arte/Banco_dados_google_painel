@@ -289,6 +289,36 @@ app.get('/BUSCAR/', (req, res) => {
   })
 })
 
+//* resgatando dados todos dados da coluna
+app.get('/BUSCAR/COLUN', (req, res) => {
+
+  const database = req.query["database"]
+  const table = req.query["table"]
+  const colun = req.query["colun"]
+
+  const sql = `SELECT ${colun} FROM ${database}.${table};`
+
+  poll.getConnection((error, conn) => {
+    if (error) {
+      return res.status(500).send({
+        error: error
+      })
+    }
+    conn.query(sql, (error, result, fields) => {
+      if (error) {
+        return res.status(500).send({
+          error: error
+        })
+      }
+      return res.status(200).send({
+        response: result,
+        data: table,
+        database: database
+      })
+    })
+  })
+})
+
 //*Input de dados
 app.post('/INPUT/', (req, res, next) => {
 
@@ -396,13 +426,12 @@ app.patch('/UPDATE/',
     const database = req.body.database
     const table = req.body.table
     const {
-      coluna_chave,
       dado_chave,
       colun,
       dado_ser_modification
     } = req.body;
 
-    const sql = `UPDATE ${database}.${table} SET  ${colun}='${dado_ser_modification}' WHERE ${coluna_chave}='${dado_chave}';`
+    const sql = `UPDATE ${database}.${table} SET  ${colun}='${dado_ser_modification}' WHERE ID='${dado_chave}';`
     console.log(sql)
     poll.getConnection((error, conn) => {
       if (error) {
