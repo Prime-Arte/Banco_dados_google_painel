@@ -23,7 +23,7 @@ app.get('/', (req, res) => { // para renderizar a home;
 
 })
 
-//Todo - rotas============================
+//Todo - rotas===========================
 
 // //*DROP Banco de dados
 app.post('/CRIAR/DATABASE', authorization, async (req, res, next) => {
@@ -69,9 +69,8 @@ app.post('/DROP/DATABASE', authorization, async (req, res, next) => {
           error: error
         })
       }
-      return res.status(200).send({
-        response: result
-      })
+      return res.status(200)
+
     })
   })
 });
@@ -299,9 +298,9 @@ app.post('/INPUT/', (req, res, next) => {
   // const b = colun.replace(/'/g, '');
   const data = req.body.data;
   //const c = data.replace(/'/g, '');
-  console.log(c)
+  console.log(colun, data)
 
-  const sql = `INSERT INTO ${database}.${table} (${b}) VALUE (${c})`
+  const sql = `INSERT INTO ${database}.${table} (${colun}) VALUE (${data})`
   console.log(sql)
 
   poll.getConnection((error, conn) => {
@@ -362,17 +361,15 @@ app.delete('/DELETE/',
     const database = req.body.database
     const table = req.body.table
     const {
-      colun1,
+      colun,
+      id,
+      data
 
     } = req.body;
 
-    const {
-      dado_input1,
 
-    } = req.body;
-
-    const sql = `DELETE FROM ${database}.${table} WHERE ${colun1}='${dado_input1}'`
-
+    const sql = `DELETE FROM ${database}.${table} WHERE ${colun}=${data} AND ID = ${id}`;
+    console.log(sql)
     poll.getConnection((error, conn) => {
       if (error) {
         return res.status(500).send({
@@ -394,18 +391,18 @@ app.delete('/DELETE/',
 
 app.patch('/UPDATE/',
   function (req, res) {
+
     const database = req.body.database
     const table = req.body.table
     const {
       coluna_chave,
-      dado_chave
-    } = req.body;
-    const {
-      dado_ser_modification,
+      dado_chave,
+      colun,
+      dado_ser_modification
     } = req.body;
 
-    const sql = `UPDATE ${database}.${table} SET ${coluna_chave} = '${dado_ser_modification}' WHERE ${coluna_chave} = '${dado_chave}';`
-
+    const sql = `UPDATE ${database}.${table} SET  ${colun}=${dado_ser_modification} WHERE ${coluna_chave}=${dado_chave};`
+    console.log(sql)
     poll.getConnection((error, conn) => {
       if (error) {
         return res.status(500).send({
