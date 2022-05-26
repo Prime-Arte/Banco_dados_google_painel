@@ -310,11 +310,17 @@ app.get('/BUSCAR/COLUN', (req, res) => {
           error: error
         })
       }
-      return res.status(200).send({
-        response: result,
-        data: table,
-        database: database
-      })
+      let dados_response = []
+      for (var i = 0; i < result.length; ++i) {
+
+        dados_response.push(
+          Object.values(result[i])
+        )
+      }
+
+      return res.status(200).send(
+        dados_response
+      )
     })
   })
 })
