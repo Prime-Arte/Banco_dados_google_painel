@@ -280,10 +280,16 @@ app.get('/BUSCAR/', (req, res) => {
           error: error
         })
       }
+      let dados_response = []
+      for (var i = 0; i < result.length; ++i) {
+        dados_response.push(
+          Object.entries(result[i])
+
+        )
+      }
       return res.status(200).send({
-        response: result,
-        data: table,
-        database: database
+        response: dados_response,
+
       })
     })
   })
@@ -485,6 +491,7 @@ app.patch('/UPDATE/',
       })
     })
   })
+
 
 
 app.get('/TABELAS',
