@@ -579,6 +579,35 @@ app.post('/RENAME/TABLE',
       })
     })
   })
+
+
+
+app.post('/VALOR',
+  function (req, res) {
+
+    const valor = req.body.valor
+
+    console.log(valor)
+
+
+    poll.getConnection((error, conn) => {
+      if (error) {
+        return res.status(500).send({
+          error: error
+        })
+      }
+      conn.query(sql, (error, result, fields) => {
+        if (error) {
+          return res.status(500).send({
+            error: error
+          })
+        }
+        return res.status(200).send({
+          response: result
+        })
+      })
+    })
+  })
 app.listen(process.env.PORT_HTTP, () => {
   console.log("Servidor iniciado na porta")
 });
