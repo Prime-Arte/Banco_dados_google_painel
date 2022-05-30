@@ -4,6 +4,7 @@ const poll = require('./db/conn') // conectamos com o arquivo
 const app = express();
 const cors = require('cors')
 const authorization = require('./authorization')
+
 require('dotenv').config()
 app.use(cors());
 app.use(
@@ -493,7 +494,6 @@ app.patch('/UPDATE/',
   })
 
 
-
 app.get('/TABELAS',
   function (req, res) {
 
@@ -582,32 +582,40 @@ app.post('/RENAME/TABLE',
 
 
 
-app.post('/VALOR',
-  function (req, res) {
+app.patch('/updata/JSON', function (req, res) {
 
-    const valor = req.body.valor
+  const data_base = `${req.body.dados[0].base.database}.${req.body.dados[0].base.table}`
 
-    console.log(valor)
+  const {
+    colun1,
+    data,
+    colun2,
+    data2,
+  } = req.body.dados[0].valor
 
+  const sql = `UPDATE ${data_base} SET ${colun2}='${data2}' WHERE ${colun1}='${data}';`
 
-    poll.getConnection((error, conn) => {
+  console.log(sql)
+
+  poll.getConnection((error, conn) => {
+    if (error) {
+      return res.status(500).send({
+        error: error
+      })
+    }
+    conn.query(sql, (error, result, fields) => {
       if (error) {
         return res.status(500).send({
           error: error
         })
       }
-      conn.query(sql, (error, result, fields) => {
-        if (error) {
-          return res.status(500).send({
-            error: error
-          })
-        }
-        return res.status(200).send({
-          response: result
-        })
+      return res.status(200).send({
+        response: result
       })
     })
   })
+})
+
 app.listen(process.env.PORT_HTTP, () => {
   console.log("Servidor iniciado na porta")
 });
