@@ -581,40 +581,378 @@ app.post('/RENAME/TABLE',
   })
 
 
-
 app.patch('/updata/JSON', function (req, res) {
 
   const data_base = `${req.body.dados[0].base.database}.${req.body.dados[0].base.table}`
 
-  const {
-    colun1,
-    data,
-    colun2,
-    data2,
-  } = req.body.dados[0].valor
-
-  const sql = `UPDATE ${data_base} SET ${colun2}='${data2}' WHERE ${colun1}='${data}';`
-
-  console.log(sql)
+  const data = req.body.dados[0].valor
+  const seletor = (Object.entries(data).length / 2 - 1)
+  const up = Object.entries(data)
+  console.log(up)
 
   poll.getConnection((error, conn) => {
     if (error) {
       return res.status(500).send({
         error: error
       })
-    }
-    conn.query(sql, (error, result, fields) => {
-      if (error) {
-        return res.status(500).send({
-          error: error
-        })
+    } else {
+
+      switch (seletor) {
+        case 1:
+
+          conn.query(`UPDATE ${data_base} SET ${up[2][1]}='${up[3][1]}' WHERE ID='${up[1][1]}'`, (error, result) => {
+
+            if (error) {
+              return res.status(500).send({
+                error: error
+              })
+            }
+            return res.status(200).send({
+              response: result
+            })
+          })
+          break;
+        case 2:
+
+          conn.query(`UPDATE ${data_base} SET ${up[2][1]}='${up[3][1]}',${up[4][1]}='${up[5][1]}' WHERE ID='${up[1][1]}'`, (error, result) => {
+            if (error) {
+              return res.status(500).send({
+                error: error
+              })
+            }
+            return res.status(200).send({
+              response: result
+            })
+          })
+
+          break;
+        case 3:
+          conn.query(`UPDATE ${data_base} SET ${up[2][1]}='${up[3][1]}',${up[4][1]}='${up[5][1]}', ${up[6][1]}='${up[7][1]}' WHERE ID='${up[1][1]}'`, (error, result) => {
+            if (error) {
+              return res.status(500).send({
+                error: error
+              })
+            }
+            return res.status(200).send({
+              response: result
+            })
+          })
+
+          break;
+        case 4:
+
+          conn.query(`UPDATE ${data_base} SET ${up[2][1]}='${up[3][1]}',${up[4][1]}='${up[5][1]}', ${up[6][1]}='${up[7][1]}' ,${up[8][1]}='${up[9][1]}' WHERE ID='${up[1][1]}'`, (error, result) => {
+            if (error) {
+              return res.status(500).send({
+                error: error
+              })
+            }
+            return res.status(200).send({
+              response: result
+            })
+          })
+          break;
+        case 5:
+          conn.query(`UPDATE ${data_base} SET ${up[2][1]}='${up[3][1]}',${up[4][1]}='${up[5][1]}', ${up[6][1]}='${up[7][1]}' ,${up[8][1]}='${up[9][1]},${up[10][1]}='${up[11][1]}' WHERE ID='${up[1][1]}'`, (error, result) => {
+            if (error) {
+              return res.status(500).send({
+                error: error
+              })
+            }
+            return res.status(200).send({
+              response: result
+            })
+          })
+
+          break;
+        case 6:
+          conn.query(`UPDATE ${data_base} SET ${up[2][1]}='${up[3][1]}',${up[4][1]}='${up[5][1]}', ${up[6][1]}='${up[7][1]}' ,${up[8][1]}='${up[9][1]},${up[10][1]}='${up[11][1]},${up[12][1]}='${up[13][1]}' WHERE ID='${up[1][1]}'`, (error, result) => {
+            if (error) {
+              return res.status(500).send({
+                error: error
+              })
+            }
+            return res.status(200).send({
+              response: result
+            })
+          })
+
+          break;
+        case 7:
+          conn.query(`UPDATE ${data_base} SET ${up[2][1]}='${up[3][1]}',${up[4][1]}='${up[5][1]}', ${up[6][1]}='${up[7][1]}' ,${up[8][1]}='${up[9][1]}',${up[10][1]}='${up[11][1]}',${up[12][1]}='${up[13][1]}',${up[14][1]}='${up[15][1]}' WHERE ID='${up[1][1]}'`, (error, result) => {
+            if (error) {
+              return res.status(500).send({
+                error: error
+              })
+            }
+            return res.status(200).send({
+              response: result
+            })
+          })
+
+          break;
+
+        case 8:
+
+          conn.query(`UPDATE ${data_base} SET ${up[2][1]}='${up[3][1]}',${up[4][1]}='${up[5][1]}', ${up[6][1]}='${up[7][1]}' ,${up[8][1]}='${up[9][1]}',${up[10][1]}='${up[11][1]}',${up[12][1]}'='${up[13][1]}',${up[14][1]}='${up[15][1]}',${up[16][1]}='${up[17][1]}' WHERE ID='${up[1][1]}'`, (error, result) => {
+            if (error) {
+              return res.status(500).send({
+                error: error
+              })
+            }
+            return res.status(200).send({
+              response: result
+            })
+          })
+
+          break;
+        case 9:
+
+          conn.query(`UPDATE ${data_base} SET ${up[2][1]}='${up[3][1]}',${up[4][1]}='${up[5][1]}', ${up[6][1]}='${up[7][1]}' ,${up[8][1]}='${up[9][1]}',${up[10][1]}='${up[11][1]}',${up[12][1]}='${up[13][1]}',${up[14][1]}='${up[15][1]}',${up[16][1]}='${up[17][1]}',${up[18][1]}='${up[19][1]}' WHERE ID='${up[1][1]}'`, (error, result) => {
+            if (error) {
+              return res.status(500).send({
+                error: error
+              })
+            }
+            return res.status(200).send({
+              response: result
+            })
+          })
+
+          break;
+        case 10:
+
+          conn.query(`UPDATE ${data_base} SET ${up[2][1]}='${up[3][1]}',${up[4][1]}='${up[5][1]}', ${up[6][1]}='${up[7][1]}' ,${up[8][1]}='${up[9][1]}',${up[10][1]}='${up[11][1]}',${up[12][1]}='${up[13][1]}',${up[14][1]}='${up[15][1]}',${up[16][1]}='${up[17][1]}',${up[18][1]}='${up[19][1]}',${up[20][1]}='${up[21][1]}' WHERE ID='${up[1][1]}'`, (error, result) => {
+            if (error) {
+              return res.status(500).send({
+                error: error
+              })
+            }
+            return res.status(200).send({
+              response: result
+            })
+          })
+
+          break;
+        case 11:
+
+          conn.query(`UPDATE ${data_base} SET ${up[2][1]}='${up[3][1]}',${up[4][1]}='${up[5][1]}', ${up[6][1]}='${up[7][1]}' ,${up[8][1]}='${up[9][1]}',${up[10][1]}='${up[11][1]}',${up[12][1]}='${up[13][1]}',${up[14][1]}='${up[15][1]}',${up[16][1]}='${up[17][1]}',${up[18][1]}='${up[19][1]}',${up[20][1]}='${up[21][1]}',${up[22][1]}='${up[23
+          ][1]}' WHERE ID='${up[1][1]}'`, (error, result) => {
+            if (error) {
+              return res.status(500).send({
+                error: error
+              })
+            }
+            return res.status(200).send({
+              response: result
+            })
+          })
+
+          break;
+        case 12:
+
+          conn.query(`UPDATE ${data_base} SET ${up[2][1]}='${up[3][1]}',${up[4][1]}='${up[5][1]}', ${up[6][1]}='${up[7][1]}' ,${up[8][1]}='${up[9][1]}',${up[10][1]}='${up[11][1]}',${up[12][1]}='${up[13][1]}',${up[14][1]}='${up[15][1]}',${up[16][1]}='${up[17][1]}',${up[18][1]}='${up[19][1]}',${up[20][1]}='${up[21][1]}',${up[22][1]}='${up[23][1]}',${up[24][1]}='${up[25][1]}' WHERE ID='${up[1][1]}'`, (error, result) => {
+            if (error) {
+              return res.status(500).send({
+                error: error
+              })
+            }
+            return res.status(200).send({
+              response: result
+            })
+          })
+
+          break;
+        case 13:
+
+          conn.query(`UPDATE ${data_base} SET ${up[2][1]}='${up[3][1]}',${up[4][1]}='${up[5][1]}', ${up[6][1]}='${up[7][1]}' ,${up[8][1]}='${up[9][1]}',${up[10][1]}='${up[11][1]}',${up[12][1]}='${up[13][1]}',${up[14][1]}='${up[15][1]}',${up[16][1]}='${up[17][1]}',${up[18][1]}='${up[19][1]}',${up[20][1]}='${up[21][1]}',${up[22][1]}='${up[23][1]}',${up[24][1]}='${up[25][1]}',${up[26][1]}='${up[27][1]}' WHERE ID='${up[1][1]}'`, (error, result) => {
+            if (error) {
+              return res.status(500).send({
+                error: error
+              })
+            }
+            return res.status(200).send({
+              response: result
+            })
+          })
+
+          break;
+        case 14:
+
+          conn.query(`UPDATE ${data_base} SET ${up[2][1]}='${up[3][1]}',${up[4][1]}='${up[5][1]}', ${up[6][1]}='${up[7][1]}' ,${up[8][1]}='${up[9][1]}',${up[10][1]}='${up[11][1]}',${up[12][1]}='${up[13][1]}',${up[14][1]}='${up[15][1]}',${up[16][1]}='${up[17][1]}',${up[18][1]}='${up[19][1]}',${up[20][1]}='${up[21][1]}',${up[22][1]}='${up[23][1]}',${up[24][1]}='${up[25][1]}',${up[26][1]}='${up[27][1]}',${up[28][1]}='${up[29][1]}' WHERE ID='${up[1][1]}'`, (error, result) => {
+            if (error) {
+              return res.status(500).send({
+                error: error
+              })
+            }
+            return res.status(200).send({
+              response: result
+            })
+          })
+
+          break;
+        case 15:
+
+          conn.query(`UPDATE ${data_base} SET ${up[2][1]}='${up[3][1]}',${up[4][1]}='${up[5][1]}', ${up[6][1]}='${up[7][1]}' ,${up[8][1]}='${up[9][1]}',${up[10][1]}='${up[11][1]}',${up[12][1]}='${up[13][1]}',${up[14][1]}='${up[15][1]}',${up[16][1]}='${up[17][1]}',${up[18][1]}='${up[19][1]}',${up[20][1]}='${up[21][1]}',${up[22][1]}='${up[23][1]}',${up[24][1]}='${up[25][1]}',${up[26][1]}='${up[27][1]}',${up[28][1]}='${up[29][1]}',${up[30][1]}='${up[31][1]}' WHERE ID='${up[1][1]}'`, (error, result) => {
+            if (error) {
+              return res.status(500).send({
+                error: error
+              })
+            }
+            return res.status(200).send({
+              response: result
+            })
+          })
+        case 16:
+
+          conn.query(`UPDATE ${data_base} SET ${up[2][1]}='${up[3][1]}',${up[4][1]}='${up[5][1]}', ${up[6][1]}='${up[7][1]}' ,${up[8][1]}='${up[9][1]}',${up[10][1]}='${up[11][1]}',${up[12][1]}='${up[13][1]}',${up[14][1]}='${up[15][1]}',${up[16][1]}='${up[17][1]}',${up[18][1]}='${up[19][1]}',${up[20][1]}='${up[21][1]}',${up[22][1]}='${up[23][1]}',${up[24][1]}='${up[25][1]}',${up[26][1]}='${up[27][1]}',${up[28][1]}='${up[29][1]}',${up[30][1]}='${up[31][1]}',${up[32][1]}='${up[33][1]}' WHERE ID='${up[1][1]}'`, (error, result) => {
+            if (error) {
+              return res.status(500).send({
+                error: error
+              })
+            }
+            return res.status(200).send({
+              response: result
+            })
+          })
+
+          break;
+
+        case 17:
+
+          conn.query(`UPDATE ${data_base} SET ${up[2][1]}='${up[3][1]}',${up[4][1]}='${up[5][1]}', ${up[6][1]}='${up[7][1]}' ,${up[8][1]}='${up[9][1]}',${up[10][1]}='${up[11][1]}',${up[12][1]}='${up[13][1]}',${up[14][1]}='${up[15][1]}',${up[16][1]}='${up[17][1]}',${up[18][1]}='${up[19][1]}',${up[20][1]}='${up[21][1]}',${up[22][1]}='${up[23][1]}',${up[24][1]}='${up[25][1]}',${up[26][1]}='${up[27][1]}',${up[28][1]}='${up[29][1]}',${up[30][1]}='${up[31][1]}',${up[32][1]}='${up[33][1]}',${up[34][1]}='${up[35][1]}' WHERE ID='${up[1][1]}'`, (error, result) => {
+            if (error) {
+              return res.status(500).send({
+                error: error
+              })
+            }
+            return res.status(200).send({
+              response: result
+            })
+          })
+
+          break;
+        case 18:
+
+          conn.query(`UPDATE ${data_base} SET ${up[2][1]}='${up[3][1]}',${up[4][1]}='${up[5][1]}', ${up[6][1]}='${up[7][1]}' ,${up[8][1]}='${up[9][1]}',${up[10][1]}='${up[11][1]}',${up[12][1]}='${up[13][1]}',${up[14][1]}='${up[15][1]}',${up[16][1]}='${up[17][1]}',${up[18][1]}='${up[19][1]}',${up[20][1]}='${up[21][1]}',${up[22][1]}='${up[23][1]}',${up[24][1]}='${up[25][1]}',${up[26][1]}='${up[27][1]}',${up[28][1]}='${up[29][1]}',${up[30][1]}='${up[31][1]}',${up[32][1]}='${up[33][1]}',${up[34][1]}='${up[35][1]}',${up[36][1]}='${up[37][1]}' WHERE ID='${up[1][1]}'`, (error, result) => {
+            if (error) {
+              return res.status(500).send({
+                error: error
+              })
+            }
+            return res.status(200).send({
+              response: result
+            })
+          })
+
+          break;
+        case 19:
+
+          conn.query(`UPDATE ${data_base} SET ${up[2][1]}='${up[3][1]}',${up[4][1]}='${up[5][1]}', ${up[6][1]}='${up[7][1]}' ,${up[8][1]}='${up[9][1]}',${up[10][1]}='${up[11][1]}',${up[12][1]}='${up[13][1]}',${up[14][1]}='${up[15][1]}',${up[16][1]}='${up[17][1]}',${up[18][1]}='${up[19][1]}',${up[20][1]}='${up[21][1]}',${up[22][1]}='${up[23][1]}',${up[24][1]}='${up[25][1]}',${up[26][1]}='${up[27][1]}',${up[28][1]}='${up[29][1]}',${up[30][1]}='${up[31][1]}',${up[32][1]}='${up[33][1]}',${up[34][1]}='${up[35][1]}',${up[36][1]}='${up[37][1]}',${up[38][1]}='${up[39][1]}' WHERE ID='${up[1][1]}'`, (error, result) => {
+            if (error) {
+              return res.status(500).send({
+                error: error
+              })
+            }
+            return res.status(200).send({
+              response: result
+            })
+          })
+
+          break;
+        case 20:
+
+          conn.query(`UPDATE ${data_base} SET ${up[2][1]}='${up[3][1]}',${up[4][1]}='${up[5][1]}', ${up[6][1]}='${up[7][1]}' ,${up[8][1]}='${up[9][1]}',${up[10][1]}='${up[11][1]}',${up[12][1]}='${up[13][1]}',${up[14][1]}='${up[15][1]}',${up[16][1]}='${up[17][1]}',${up[18][1]}='${up[19][1]}',${up[20][1]}='${up[21][1]}',${up[22][1]}='${up[23][1]}',${up[24][1]}='${up[25][1]}',${up[26][1]}='${up[27][1]}',${up[28][1]}='${up[29][1]}',${up[30][1]}='${up[31][1]}',${up[32][1]}='${up[33][1]}',${up[34][1]}='${up[35][1]}',${up[36][1]}='${up[37][1]}',${up[38][1]}='${up[39][1]}',${up[40][1]}='${up[41][1]}' WHERE ID='${up[1][1]}'`, (error, result) => {
+            if (error) {
+              return res.status(500).send({
+                error: error
+              })
+            }
+            return res.status(200).send({
+              response: result
+            })
+          })
+
+          break;
+        case 21:
+
+          conn.query(`UPDATE ${data_base} SET ${up[2][1]}='${up[3][1]}',${up[4][1]}='${up[5][1]}', ${up[6][1]}='${up[7][1]}' ,${up[8][1]}='${up[9][1]}',${up[10][1]}='${up[11][1]}',${up[12][1]}='${up[13][1]}',${up[14][1]}='${up[15][1]}',${up[16][1]}='${up[17][1]}',${up[18][1]}='${up[19][1]}',${up[20][1]}='${up[21][1]}',${up[22][1]}='${up[23][1]}',${up[24][1]}='${up[25][1]}',${up[26][1]}='${up[27][1]}',${up[28][1]}='${up[29][1]}',${up[30][1]}='${up[31][1]}',${up[32][1]}='${up[33][1]}',${up[34][1]}='${up[35][1]}',${up[36][1]}='${up[37][1]}',${up[38][1]}='${up[39][1]}',${up[40][1]}='${up[41][1]}',${up[42][1]}='${up[43][1]}' WHERE ID='${up[1][1]}'`, (error, result) => {
+            if (error) {
+              return res.status(500).send({
+                error: error
+              })
+            }
+            return res.status(200).send({
+              response: result
+            })
+          })
+
+          break;
+        case 22:
+
+          conn.query(`UPDATE ${data_base} SET ${up[2][1]}='${up[3][1]}',${up[4][1]}='${up[5][1]}', ${up[6][1]}='${up[7][1]}' ,${up[8][1]}='${up[9][1]}',${up[10][1]}='${up[11][1]}',${up[12][1]}='${up[13][1]}',${up[14][1]}='${up[15][1]}',${up[16][1]}='${up[17][1]}',${up[18][1]}='${up[19][1]}',${up[20][1]}='${up[21][1]}',${up[22][1]}='${up[23][1]}',${up[24][1]}='${up[25][1]}',${up[26][1]}='${up[27][1]}',${up[28][1]}='${up[29][1]}',${up[30][1]}='${up[31][1]}',${up[32][1]}='${up[33][1]}',${up[34][1]}='${up[35][1]}',${up[36][1]}='${up[37][1]}',${up[38][1]}='${up[39][1]}',${up[40][1]}='${up[41][1]}',${up[42][1]}='${up[43][1]}',${up[44][1]}='${up[45][1]}' WHERE ID='${up[1][1]}'`, (error, result) => {
+            if (error) {
+              return res.status(500).send({
+                error: error
+              })
+            }
+            return res.status(200).send({
+              response: result
+            })
+          })
+
+          break;
+        case 23:
+
+          conn.query(`UPDATE ${data_base} SET ${up[2][1]}='${up[3][1]}',${up[4][1]}='${up[5][1]}', ${up[6][1]}='${up[7][1]}' ,${up[8][1]}='${up[9][1]}',${up[10][1]}='${up[11][1]}',${up[12][1]}='${up[13][1]}',${up[14][1]}='${up[15][1]}',${up[16][1]}='${up[17][1]}',${up[18][1]}='${up[19][1]}',${up[20][1]}='${up[21][1]}',${up[22][1]}='${up[23][1]}',${up[24][1]}='${up[25][1]}',${up[26][1]}='${up[27][1]}',${up[28][1]}='${up[29][1]}',${up[30][1]}='${up[31][1]}',${up[32][1]}='${up[33][1]}',${up[34][1]}='${up[35][1]}',${up[36][1]}='${up[37][1]}',${up[38][1]}='${up[39][1]}',${up[40][1]}='${up[41][1]}',${up[42][1]}='${up[43][1]}',${up[44][1]}='${up[45][1]}',${up[46][1]}='${up[47][1]}' WHERE ID='${up[1][1]}'`, (error, result) => {
+            if (error) {
+              return res.status(500).send({
+                error: error
+              })
+            }
+            return res.status(200).send({
+              response: result
+            })
+          })
+
+          break;
+        case 24:
+
+          conn.query(`UPDATE ${data_base} SET ${up[2][1]}='${up[3][1]}',${up[4][1]}='${up[5][1]}', ${up[6][1]}='${up[7][1]}' ,${up[8][1]}='${up[9][1]}',${up[10][1]}='${up[11][1]}',${up[12][1]}='${up[13][1]}',${up[14][1]}='${up[15][1]}',${up[16][1]}='${up[17][1]}',${up[18][1]}='${up[19][1]}',${up[20][1]}='${up[21][1]}',${up[22][1]}='${up[23][1]}',${up[24][1]}='${up[25][1]}',${up[26][1]}='${up[27][1]}',${up[28][1]}='${up[29][1]}',${up[30][1]}='${up[31][1]}',${up[32][1]}='${up[33][1]}',${up[34][1]}='${up[35][1]}',${up[36][1]}='${up[37][1]}',${up[38][1]}='${up[39][1]}',${up[40][1]}='${up[41][1]}',${up[42][1]}='${up[43][1]}',${up[44][1]}='${up[45][1]}',${up[46][1]}='${up[47][1]}',${up[48][1]}='${up[49][1]}' WHERE ID='${up[1][1]}'`, (error, result) => {
+            if (error) {
+              return res.status(500).send({
+                error: error
+              })
+            }
+            return res.status(200).send({
+              response: result
+            })
+          })
+
+          break;
+        case 25:
+
+          conn.query(`UPDATE ${data_base} SET  ${up[2][1]}='${up[3][1]}',${up[4][1]}='${up[5][1]}', ${up[6][1]}='${up[7][1]}' ,${up[8][1]}='${up[9][1]}',${up[10][1]}='${up[11][1]}',${up[12][1]}='${up[13][1]}',${up[14][1]}='${up[15][1]}',${up[16][1]}='${up[17][1]}',${up[18][1]}='${up[19][1]}',${up[20][1]}='${up[21][1]}',${up[22][1]}='${up[23][1]}',${up[24][1]}='${up[25][1]}',${up[26][1]}='${up[27][1]}',${up[28][1]}='${up[29][1]}',${up[30][1]}='${up[31][1]}',${up[32][1]}='${up[33][1]}',${up[34][1]}='${up[35][1]}',${up[36][1]}='${up[37][1]}',${up[38][1]}='${up[39][1]}',${up[40][1]}='${up[41][1]}',${up[42][1]}='${up[43][1]}',${up[44][1]}='${up[45][1]}',${up[46][1]}='${up[47][1]}',${up[48][1]}='${up[49][1]}',${up[50][1]}='${up[51][1]}' WHERE ID='${up[1][1]}'`, (error, result) => {
+            if (error) {
+              return res.status(500).send({
+                error: error
+              })
+            }
+            return res.status(200).send({
+              response: result
+            })
+          })
+          break;
+
       }
-      return res.status(200).send({
-        response: result
-      })
-    })
+
+    }
   })
 })
+
+
+
+
 
 app.listen(process.env.PORT_HTTP, () => {
   console.log("Servidor iniciado na porta")
